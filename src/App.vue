@@ -6,16 +6,16 @@
       byte b = {{byte}};
       float f = {{float}}F;
       double d = {{double}};
-      char c = '{{char}}'
+      char c = '{{char}}';
     </code></pre>
     <table class="table">
       <thead>
         <th>Expression</th>
         <th>Type</th>
-        <th>Val</th>
+        <th>Value</th>
         <th>Check</th>
       </thead>
-      <tr v-for="problem in problems" :key="problem.val" :class="problem.style">
+      <tr v-for="problem in problems" :key="problem.expr" :class="problem.style">
         <td>{{problem.expr}} </td>
         <td><input v-model="problem.typeIn" type="text"></td>
         <td><input v-model="problem.valIn" type="text"></td>
@@ -100,9 +100,32 @@ export default {
           style: []
         },
         {
-          expr: "((int)(d*100))/100.0",
+          expr: "((int)(d*100))/100.0 + 1",
           type: "double",
-          val: Math.floor(this.double * 100) / 100.0,
+          val: Math.floor(this.double * 100) / 100.0 + 1,
+          style: []
+        },
+        {
+          expr: "((c * c) + i) + (double) (c)",
+          type: "double",
+          val:
+            this.char.charCodeAt(0) * this.char.charCodeAt(0) +
+            this.int +
+            this.char.charCodeAt(0),
+          style: []
+        },
+        {
+          expr: "i / Math.pow(b,3)",
+          type: "int",
+          val: this.int / Math.pow(this.byte, 3),
+          style: []
+        },
+        {
+          expr: "(int)(2*d)/(2*d)",
+          type: "double",
+          val:
+            Math.floor(Math.floor(2 * this.double) / (2 * this.double) * 100) /
+            100,
           style: []
         }
       ];
