@@ -8,7 +8,6 @@
       double d = {{double}};
       char c = '{{char}}'
     </code></pre>
-    {{problems[0]}}
     <table class="table">
       <thead>
         <th>Expression</th>
@@ -27,14 +26,12 @@
 </template>
 
 <script>
-import Row from "@/components/Row";
-
 export default {
   name: "App",
-  components: { Row },
+  components: {},
   methods: {
     check({ type, val, typeIn, valIn, style }) {
-      if (type == typeIn && valIn - 0.01 < val && valIn + 0.01 > val) {
+      if (type == typeIn && Math.abs(valIn - val) < 0.02) {
         style.push("green");
         this.$forceUpdate();
       }
@@ -94,6 +91,18 @@ export default {
             Math.floor(
               (2 * this.int + this.char.charCodeAt(0) + this.double) * 100 / 1
             ) / 100,
+          style: []
+        },
+        {
+          expr: " 3 / b",
+          type: "int",
+          val: Math.floor(3 / this.byte),
+          style: []
+        },
+        {
+          expr: "((int)(d*100))/100.0",
+          type: "double",
+          val: Math.floor(this.double * 100) / 100.0,
           style: []
         }
       ];
